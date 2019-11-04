@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import Goals from './Goals';
 
 class App extends React.Component {
   constructor(props){
@@ -25,38 +26,12 @@ class App extends React.Component {
     localStorage.setItem(`eggs.${e.target.name}`, e.target.value);
   }
 
-  timeUntilDone() {
-    const oneDay = 1000 * 60 * 60 * 24;
-    const milliseconds = (this.missingChickens() / this.chickensHatchingPerMinte()) * (1000 * 60);
-    const daysUntilFinished = Math.floor(milliseconds / (1000 * 60 * 60 * 24));
-    const hoursUntilFinished = Math.floor(milliseconds % oneDay / (1000 * 60 * 60));
-
-    return {
-      daysUntilFinished,
-      hoursUntilFinished
-    }
-  }
-
-  missingChickens() {
-    return (this.state.endGoal - this.state.currentChickens);
-  } 
-
-  chickensHatchingPerMinte() {
-    return (this.state.chickensPerMinute * this.state.habitats);
-  }
-
   render() {
     return (
       <div className="App">
         <header>Eggs Inc. calculator</header>
         <main>
-          <div className="goals">
-            <h3>Chickens remaining</h3>
-            <h1>{this.missingChickens().toLocaleString()}</h1>
-            <h3>Goal reached in</h3>
-            <h2>
-              <span>{this.timeUntilDone().daysUntilFinished}</span> days and <span>{this.timeUntilDone().hoursUntilFinished}</span> hours</h2>
-          </div>
+          <Goals {...this.state}></Goals>
           <div>
             <span>Chicken goal:</span>
             <input name="endGoal" onChange={this.inputField} value={this.state.endGoal} type="number" pattern="[0-9]*" />

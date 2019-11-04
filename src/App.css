@@ -12,13 +12,14 @@ header {
   font-size: calc(15px + 4vmin);
   color: white;
   font-weight: bolder;
+  margin-bottom: 2vh;
 }
 
 main {
-  min-height: 90vh;
+  min-height: 88vh;
   font-size: calc(12px + 2vmin);
   color: white;
-  padding: 2vw;
+  padding: 0 2vw;
 }
 main div {
   margin: 0.7vh 0;
@@ -63,4 +64,5 @@ main h2 > span{
 .goals {
   margin: 0;
   margin-bottom: 3vh;
+  /* border-bottom: 10vh solid tomato; */
 }

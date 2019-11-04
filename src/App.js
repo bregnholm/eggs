@@ -48,26 +48,31 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <header>Eggs</header>
+        <header>Eggs Inc. calculator</header>
         <main>
-          <div>
-            <span>How many chickens do I want:</span>
-            <input name="endGoal" onChange={this.inputField} value={this.state.endGoal} type="number" />
+          <div className="goals">
+            <h3>Chickens remaining</h3>
+            <h1>{this.missingChickens().toLocaleString()}</h1>
+            <h3>Goal reached in</h3>
+            <h2>
+              <span>{this.timeUntilDone().daysUntilFinished}</span> days and <span>{this.timeUntilDone().hoursUntilFinished}</span> hours</h2>
           </div>
           <div>
-            <span>Current amount of chickens:</span>
-            <input name="currentChickens" onChange={this.inputField} value={this.state.currentChickens} type="number" />
+            <span>Chicken goal:</span>
+            <input name="endGoal" onChange={this.inputField} value={this.state.endGoal} type="number" pattern="[0-9]*" />
           </div>
           <div>
-            <span>Hatching per minute</span>
-            <input name="chickensPerMinute" onChange={this.inputField} value={this.state.chickensPerMinute} type="number" />
+            <span>Current:</span>
+            <input name="currentChickens" onChange={this.inputField} value={this.state.currentChickens} type="number" pattern="[0-9]*" />
           </div>
           <div>
-            <span>Number of habitats</span>
-            <input name="habitats" onChange={this.inputField} value={this.state.habitats} type="number" />
+            <span>Hatch pr. min</span>
+            <input name="chickensPerMinute" onChange={this.inputField} value={this.state.chickensPerMinute} type="number" pattern="[0-9]*" />
           </div>
-          <h3>I still need <u>{this.missingChickens().toLocaleString()}</u> chickens</h3>
-          <h3>I should have that in <u>{this.timeUntilDone().daysUntilFinished}</u> days and <u>{this.timeUntilDone().hoursUntilFinished}</u> hours</h3>
+          <div>
+            <span>Habitats</span>
+            <input name="habitats" onChange={this.inputField} value={this.state.habitats} type="number" pattern="[0-9]*" />
+          </div>
         </main>
         <footer></footer>
       </div>

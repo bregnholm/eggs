@@ -1,6 +1,8 @@
 import React from 'react';
 import './App.css';
 import Goals from './Goals';
+import Navigation from './Navigation/Navigation';
+import GoalsTwo from './GoalsTwo';
 
 class App extends React.Component {
   constructor(props){
@@ -9,7 +11,8 @@ class App extends React.Component {
       endGoal: 0, 
       currentChickens: 0,
       chickensPerMinute: 0,
-      habitats: 4
+      habitats: 4,
+      activeKey: "#features"
     }
   }
 
@@ -26,12 +29,19 @@ class App extends React.Component {
     localStorage.setItem(`eggs.${e.target.name}`, e.target.value);
   }
 
+  nav = (e) => {
+    this.setState(e)
+  }
+
   render() {
     return (
       <div className="App">
-        <header>Eggs Inc. calculator</header>
+        <header>
+          <span>Eggs Inc. calculator</span>
+          <Navigation activeKey={this.state.activeKey} selected={this.nav}></Navigation>
+        </header>
         <main>
-          <Goals {...this.state}></Goals>
+         {this.state.activeKey === '#goals' ? <Goals {...this.state}></Goals> : <GoalsTwo></GoalsTwo>}
           <div>
             <span>Chicken goal:</span>
             <input name="endGoal" onChange={this.inputField} value={this.state.endGoal} type="number" pattern="[0-9]*" />

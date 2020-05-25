@@ -1,28 +1,31 @@
 .App {
   text-align: left;
   background-color: #282c34;
+  height: 100vh;
 }
 header {
   background-color: tomato;
-  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(15px + 4vmin);
   color: white;
   font-weight: bolder;
   margin-bottom: 2vh;
 }
+header span {
+  height: 10vh;
+  font-size: calc(15px + 4vmin);
+  line-height: 10vh;
+}
 
 main {
-  min-height: 88vh;
   font-size: calc(12px + 2vmin);
   color: white;
   padding: 0 2vw;
 }
 main div {
-  margin: 0.7vh 0;
+  /* margin: 0.7vh 0; */
 }
 main span {
   width: 70%;

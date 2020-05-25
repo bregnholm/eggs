@@ -4,7 +4,10 @@
   "private": true,
   "homepage": "http://bregnholm.github.io/eggs",
   "dependencies": {
+    "bootstrap": "^4.3.1",
+    "number-to-words": "^1.2.4",
     "react": "^16.11.0",
+    "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.11.0",
     "react-scripts": "3.2.0"
   },

@@ -1,7 +1,7 @@
 const moment = require("moment");
 const chalk = require('chalk');
 const numbers = require('./scripts/numbers.js');
-// IN PROGRESS
+
 class AdventureCommunist {
 
     constructor(title) {
@@ -11,7 +11,6 @@ class AdventureCommunist {
         this.making = 0;
         this.having = 0;
         this.want = 0;
-        this.currency;
     }
 
     get iNeed() {
@@ -66,30 +65,36 @@ class AdventureCommunist {
     }
 }
 
-const ACshrines = new AdventureCommunist('Shuriken');
-ACshrines.makePerSecond(230, 'GG');
-ACshrines.iHave(1, 'II');
-ACshrines.iWant(25,'II');
+const adventures = [];
+adventures[0] = new AdventureCommunist('Shuriken');
+adventures[0].makePerSecond(1.19, 'HH');
+adventures[0].iHave(23.51, 'II');
+adventures[0].iWant(25,'II');
 
-const AC = new AdventureCommunist('Scrolls');
-AC.makePerSecond(1.50, 'EE');
-AC.iHave(8.15, 'FF');
-AC.iWant(68, 'FF');
+adventures[1] = new AdventureCommunist('Shoguns');
+adventures[1].makePerSecond(1.20, 'HH');
+adventures[1].iHave(267 * 100, 'HH');
+adventures[1].iWant(700 * 100, 'HH');
+
+
+adventures[2] = new AdventureCommunist('Kaiju');
+adventures[2].makePerSecond(10.45, 'EE');
+adventures[2].iHave(20 * 10, 'FF');
+adventures[2].iWant(50 * 10, 'FF');
 
 
 console.clear();
 console.log(chalk.bgRed(`                                                                                             `));
 console.log(chalk.bgRed("                              ADVENTURE COMMUNIST CALCULATIONS                               "));
 console.log(chalk.bgRed(`                                                                                             `));
-console.log(`   I need:                 ${ACshrines.neededStill} ${ACshrines.title}`);
-console.log(`   Should have that in:    ${ACshrines.timeObject.days}, ${ACshrines.timeObject.hours} and ${ACshrines.timeObject.minutes}`);
-console.log(`   So check in at:         ${ACshrines.checkInTime}`);
+adventures.forEach(adventure => {
+    const { days, hours, minutes } = adventure.timeObject;
+    console.log(`\n`);
+    console.log(`   I need:                 ${adventure.neededStill} ${adventure.title}`);
+    console.log(`   Should have that in:    ${days}, ${hours} and ${minutes}`);
+    console.log(`   So check in at:         ${adventure.checkInTime}`);
+})
 console.log(`\n`);
-console.log(`   I need:                 ${AC.neededStill} ${AC.title}`);
-console.log(`   Should have that in:    ${AC.timeObject.days}, ${AC.timeObject.hours} and ${AC.timeObject.minutes}`);
-console.log(`   So check in at:         ${AC.checkInTime}`);
-console.log(chalk.bgGrey(`                                                                                             `));
-console.log(chalk.bgGrey("                                    MADE BY Peter Nielsen                                    "));
-console.log(chalk.bgGrey(`                                                                                             `));
-
-
+console.log(chalk.bgBlackBright(`                                                                                             `));
+console.log(chalk.bgBlackBright("                                    MADE BY Peter Nielsen                                    "));
+console.log(chalk.bgBlackBright(`                                                                                             `));

@@ -70,7 +70,9 @@ class AdventureCommunist {
         }
         const last = ready.pop();
 
-        return ready.join(", ") + ' and ' + last;
+        if(ready.join(", ").length > 0) {
+            return ready.join(", ") + ' and ' + last;
+        } else { return last };
     }
 
     makePerSecond(make = 0, string = '') {
@@ -94,28 +96,30 @@ class AdventureCommunist {
 }
 
 const adventures = [];
-adventures[0] = new AdventureCommunist('comrades for Hospitals');
-//adventures[0].percentage = 0.27;
-//adventures[0].bonus = 32760;
-adventures[0].multiplier = 5;
-adventures[0].makePerSecond(708.609, 'Thousand');
-adventures[0].iHave(11.69, 'B');
-adventures[0].iWant(23,'B');
+adventures[0] = new AdventureCommunist('Bullets');
+adventures[0].percentage = 0.27;
+adventures[0].bonus = 32760;
+// adventures[0].multiplier = 5;
+adventures[0].makePerSecond(103.35, 'WW');
+adventures[0].iHave(8.27, 'ZZ');
+adventures[0].iWant(180,'ZZ');
 
-adventures[1] = new AdventureCommunist('Potatoes');
+adventures[1] = new AdventureCommunist('Land');
 adventures[1].percentage = 0.27;
 adventures[1].bonus = 32760;
-adventures[1].makePerSecond(4.26, 'LLL');
-adventures[1].iHave(2.25, 'OOO');
-adventures[1].iWant(3.7, 'OOO');
+adventures[1].makePerSecond(467, 'BBB');
+adventures[1].iHave(139.56, 'EEE');
+adventures[1].iWant(5, 'FFF');
 
 
-adventures[2] = new AdventureCommunist('Airports');
-adventures[2].percentage = 0.27;
-adventures[2].bonus = 32760;
-adventures[2].makePerSecond(137.9, 'HHH');
-adventures[2].iHave(70, 'KFC');
-adventures[2].iWant(7378, 'KFC');
+adventures[2] = new AdventureCommunist('comrades for Artilleries');
+// adventures[2].percentage = 0.27;
+// adventures[2].bonus = 32760;
+adventures[2].multiplier = 4;
+
+adventures[2].makePerSecond(602.113, 'Thousand');
+adventures[2].iHave(2.78, 'B');
+adventures[2].iWant(10, 'B');
 
 
 console.clear();

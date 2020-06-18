@@ -24,18 +24,21 @@ const fullwalks = () => {
     return walksfull;
 }
 
-// const walkedSoFar = fullwalks().reduce((prev, curr) => {
-//     con
-//     prev.meters + curr.meters
-// });
-// const youNeed = (metersInAYear - walkedSoFar) / (daysthisYear - daysPassed);
+const walkedSoFar = fullwalks().reduce((prev, curr) => (prev.meters || prev) + curr.meters);
+const average = (walkedSoFar) / (daysPassed);
+const walkedInTotalIfKept = (average * (daysthisYear - daysPassed)) + walkedSoFar;
+const youNeed = (metersInAYear - walkedSoFar) / (daysthisYear - daysPassed);
 
 console.clear();
 console.log(`\n\n`)
-console.log(`You should walk ${metersInAYear/1000}km in a year`);
-console.log(walkedSoFar);
-// console.log(`You have walked ${walkedSoFar/1000}km this year`);
+console.log(`Goal:              ${metersInAYear/1000}km in a year`);
+console.log(`You have walked:   ${walkedSoFar/1000}km this year so far`);
+console.log(`Average:           ${(average/1000).toFixed(2)}km this year so far`);
+console.log(`\n\n`)
+console.log(`Prospected result: ${(walkedInTotalIfKept/1000).toFixed(2)}km this year`);
+console.log(`\n\n`)
 // console.log(fullwalks());
-// console.log(`You should start walking ${(youNeed / 1000).toFixed(2)}km a day in order to make it`);
+console.log("To reach the goal you should the rest of the year")
+console.log(`Walk at least:     ${(youNeed / 1000).toFixed(2)}km per day`);
 console.log(`\n\n`)
 // console.log("hello");

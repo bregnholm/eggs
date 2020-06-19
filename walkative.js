@@ -1,5 +1,5 @@
 const moment = require("moment");
-const walks = require('./walks.json');
+const walks = require('./scripts/walks.json');
 const fromMoment = moment([2020, 0]);
 const daysthisYear = moment([2021, 0]).diff(fromMoment, 'days');
 
@@ -8,8 +8,10 @@ const metersInAYear = metersInADay * daysthisYear;
 const daysPassed = moment().diff(fromMoment, 'days');
 
 
-const walkedSoFarPerDay = 2400;
-// const walkedSoFar = walkedSoFarPerDay * daysPassed;
+//
+//const walkedSoFarPerDay = 2400;
+const totalOfWalks = Object.values(walks).reduce((prev, curr) => prev + curr)
+const walkedSoFarPerDay = totalOfWalks / Object.keys(walks).length;
 
 
 const fullwalks = () => {
@@ -37,8 +39,6 @@ console.log(`Average:           ${(average/1000).toFixed(2)}km this year so far`
 console.log(`\n\n`)
 console.log(`Prospected result: ${(walkedInTotalIfKept/1000).toFixed(2)}km this year`);
 console.log(`\n\n`)
-// console.log(fullwalks());
 console.log("To reach the goal you should the rest of the year")
 console.log(`Walk at least:     ${(youNeed / 1000).toFixed(2)}km per day`);
 console.log(`\n\n`)
-// console.log("hello");

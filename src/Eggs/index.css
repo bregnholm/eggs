@@ -1,0 +1,52 @@
+main {
+  font-size: calc(12px + 2vmin);
+  color: white;
+  padding: 0 2vw;
+}
+
+main span {
+  width: 70%;
+  display: inline-block;
+}
+
+main input {
+  font: inherit;
+  background: none;
+  border: none;
+  border-bottom: 1px white dashed;
+  color:inherit;
+  text-align: right;
+  padding: 0;
+  width: 30%;
+}
+
+main h3, main h2, main h1 {
+  text-align: center;
+  margin: 0;
+  font-weight: normal;
+}
+main h1 {
+  color: tomato;
+  font-weight: bold;
+  margin-bottom: 1vh;
+}
+main h2 {
+  margin-bottom: 1vh;
+}
+
+main h2 > span{
+  display:inline;
+  color: tomato;
+  font-size: calc(20px + 3vmin);
+  font-weight: bold;
+}
+
+.goals {
+  margin: 0;
+  margin-bottom: 3vh;
+  /* border-bottom: 10vh solid tomato; */
+}
+
+header.eggs {
+  background-color: tomato;
+}

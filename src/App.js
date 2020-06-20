@@ -1,57 +1,48 @@
-import React from 'react';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import Eggs from "./Eggs";
+import Walks from "./Walks";
 import './App.css';
-import Goals from './Goals';
+import Home from "./Home";
 
-class App extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      endGoal: 0, 
-      currentChickens: 0,
-      chickensPerMinute: 0,
-      habitats: 4
-    }
-  }
 
-  componentDidMount(nextProps) {
-    for(var i =0; i < localStorage.length; i++){
-      const currentKey = localStorage.key(i);
-      if(currentKey.includes('eggs.')) {
-        this.setState({[currentKey.split('eggs.').pop()]: localStorage.getItem(currentKey)});
-      }
-    }
-  }
-  inputField = (e) => {
-    this.setState({[e.target.name]: Math.round(e.target.value)});
-    localStorage.setItem(`eggs.${e.target.name}`, e.target.value);
-  }
-
-  render() {
-    return (
+export default function App() {
+  return (
+    <Router>
       <div className="App">
-        <header>Eggs Inc. calculator</header>
-        <main>
-          <Goals {...this.state}></Goals>
-          <div>
-            <span>Chicken goal:</span>
-            <input name="endGoal" onChange={this.inputField} value={this.state.endGoal} type="number" pattern="[0-9]*" />
-          </div>
-          <div>
-            <span>Current:</span>
-            <input name="currentChickens" onChange={this.inputField} value={this.state.currentChickens} type="number" pattern="[0-9]*" />
-          </div>
-          <div>
-            <span>Hatch pr. min</span>
-            <input name="chickensPerMinute" onChange={this.inputField} value={this.state.chickensPerMinute} type="number" pattern="[0-9]*" />
-          </div>
-          <div>
-            <span>Habitats</span>
-            <input name="habitats" onChange={this.inputField} value={this.state.habitats} type="number" pattern="[0-9]*" />
-          </div>
-        </main>
+        <Navbar expand="lg" variant="dark">
+          <Navbar.Brand href="/">Peters Stuff</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                    <Nav.Link href="/">Home</Nav.Link>
+                    <Nav.Link href="/eggs">Eggs</Nav.Link>
+                    <Nav.Link href="/walks">Walks</Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar>
+
+        <Switch>
+            <Route path="/eggs">
+                <Eggs />
+            </Route>
+            <Route path="/walks">
+                <Walks />
+            </Route>
+            <Route path="/">
+                <Home />
+            </Route>
+        </Switch>
         <footer></footer>
       </div>
-    );
-  }
+    </Router>
+  );
 }
-export default App;

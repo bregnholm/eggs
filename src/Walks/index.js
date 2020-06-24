@@ -1,8 +1,7 @@
 import React from 'react';
 import './index.css';
 import ProgressBar from 'react-bootstrap/ProgressBar';
-// import holderjs from 'holderjs';
-
+import Image from 'react-bootstrap/Image'
 import Carousel from 'react-bootstrap/Carousel';
 import moment from 'moment';
 import "holderjs";
@@ -50,54 +49,27 @@ class Walks extends React.Component {
       <>
       <header className="walks">Walk Motivator</header>
         <main>
-        <Carousel>
-        <Carousel.Item>
-    <img
-      className="d-block w-100"
-      src="holder.js/800x400?text=Almost There&bg=373940"
-      alt="First slide"
-    />
-    <Carousel.Caption>
-      <h3>You only need to walk {youNeed.toFixed(2)}km today :D </h3>
-      <p>{iHaveWalked}</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-  <Carousel.Item>
-    <img
-      className="d-block w-100"
-      src="holder.js/800x400?text=Second slide&bg=282c34"
-      alt="Third slide"
-    />
+          <Carousel controls="false">
+            <Carousel.Item>
+              <div className="box">
+                <Carousel.Caption>
+                  <h2>Walk {totalKm}km this year!</h2>
+                  <h3>So far you have walked {iHaveWalked}km</h3>
+                  </Carousel.Caption>
+              </div>
+            </Carousel.Item>
+          </Carousel>
 
-    <Carousel.Caption>
-      <h3>Second slide label</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-  <Carousel.Item>
-    <img
-      className="d-block w-100"
-      src="holder.js/800x400?text=Third slide&bg=20232a"
-      alt="Third slide"
-    />
 
-    <Carousel.Caption>
-      <h3>Third slide label</h3>
-      <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-    </Carousel.Caption>
-  </Carousel.Item>
-</Carousel>
-
-          <h4>GOALS</h4>
+          <h4>GOAL</h4>
+          <div className="list">
+            <span></span>
+          </div>
           <div className="list">
             <span>Walk per day:</span>
             <input name="endGoal" onChange={this.inputField} value={this.state.endGoal} type="number" pattern="[0-9]*" />
           </div>
           <hr></hr>
-          <div className="list">
-            <span>KM in a year:</span>
-            <span>{totalKm}km</span>
-          </div>
           <ProgressBar now={( this.state.currentAverage / this.state.endGoal) * 100} />
           <div className="list">
             <span>Current:</span>

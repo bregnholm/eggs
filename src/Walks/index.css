@@ -1,48 +1,6 @@
-main {
-  font-size: calc(12px + 2vmin);
-  color: white;
-  padding: 0 2vw;
-}
-main span {
-  width: 70%;
-  display: inline-block;
-}
-
-main input {
-  font: inherit;
-  background: none;
-  border: none;
-  border-bottom: 1px white dashed;
-  color:inherit;
-  text-align: right;
-  padding: 0;
-  width: 30%;
-}
-
-main h3, main h2, main h1 {
-  text-align: center;
-  margin: 0;
-  font-weight: normal;
-}
-main h1 {
-  color: tomato;
-  font-weight: bold;
-  margin-bottom: 1vh;
-}
-main h2 {
-  margin-bottom: 1vh;
-}
-
-main h2 > span{
-  display:inline;
-  color: tomato;
-  font-size: calc(20px + 3vmin);
-  font-weight: bold;
-}
-
 .goals {
   margin: 0;
-  margin-bottom: 3vh;
+  /*margin-bottom: 3vh; */
   /* border-bottom: 10vh solid tomato; */
 }
 
@@ -57,11 +15,53 @@ div.box {
 
 div.box > div {
   margin: 0;
-  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   right: auto;
   bottom: auto;
+  width: 80vw;
 }
 
+/*div.box h2 {
+  margin-bottom: 6vh;
+}
+*/
+
+div.box h4 {
+  margin-bottom: 6vh;
+}
+
+div.box span {
+  color: #28a745;
+  width: auto;
+  font-weight: bold;
+}
+
+div.box span.notReached {
+  color: tomato;
+}
+
+div.dayofWalk {
+  border-bottom: 1px dashed gray;
+}
+
+/*div.dayofWalk span {
+  width: auto;
+}
+*/
+div.dayofWalk input {
+  float: right;
+  border:none;
+}
+
+div.goals {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out;
+}
+
+div.goals.open {
+  max-height: calc(100vh - 56px - 10vh);
+  overflow: scroll;
+}

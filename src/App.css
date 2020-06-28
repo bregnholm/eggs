@@ -12,9 +12,13 @@
     font-size: calc(15px + 4vmin);
     color: white;
     font-weight: bolder;
-    margin-bottom: 2vh;
   }
   
+header .btn{
+  position: absolute;
+  right: 2vw;
+}
+
   main div.list {
     margin: 0.7vh 0;
   }

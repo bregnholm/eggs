@@ -1,84 +1,97 @@
 import React from 'react';
 import './index.css';
-import ProgressBar from 'react-bootstrap/ProgressBar';
-import Image from 'react-bootstrap/Image'
 import Carousel from 'react-bootstrap/Carousel';
+import Button from 'react-bootstrap/Button';
+import ProgressBar from 'react-bootstrap/ProgressBar'
+
 import moment from 'moment';
 import "holderjs";
+import Goals from './Goals';
 
 class Walks extends React.Component {
   constructor(props){
     super(props);
 
-//    const moment = require("moment");
     const fromMoment = moment([2020, 0]);
     const daysthisYear = moment([2021, 0]).diff(fromMoment, 'days');
     const daysPassed = moment().diff(fromMoment, 'days');
     
-
-
     this.state = {
-      endGoal: 3, 
-      currentAverage: 2.4,
-      chickensPerMinute: 0,
-      habitats: 4,
+      endGoal: 3000, 
+      currentAverage: 2400,
       daysthisYear,
-      daysPassed
+      daysPassed,
+      goalsOpen: false
     }
   }
 
+
   componentDidMount(nextProps) {
+    this.update();
+  }
+
+  goalsOpen = () => {
+    this.setState({ goalsOpen: !this.state.goalsOpen })
+  }
+
+  update = () => {
     for(var i =0; i < localStorage.length; i++){
       const currentKey = localStorage.key(i);
-      if(currentKey.includes('walks.')) {
-        this.setState({[currentKey.split('walks.').pop()]: localStorage.getItem(currentKey)});
+      if(currentKey.includes('walkative.')) {
+        this.setState({[currentKey.split('walkative.').pop()]: JSON.parse(localStorage.getItem(currentKey))});
       }
     }
   }
-  inputField = (e) => {
-    this.setState({[e.target.name]: Math.round(e.target.value)});
-    localStorage.setItem(`walks.${e.target.name}`, e.target.value);
-  }
 
   render() {
-    const iHaveWalked = this.state.currentAverage * this.state.daysPassed;
-    const totalKm = this.state.endGoal * this.state.daysthisYear;
-    const youNeed = (totalKm - iHaveWalked) / (this.state.daysthisYear - this.state.daysPassed);
+    const {currentAverage, daysPassed, endGoal, daysthisYear, goalsOpen} = this.state;
+    const iHaveWalked = (currentAverage * daysPassed) / 1000;
+    const totalKm = (endGoal * daysthisYear) / 1000;
+    const youNeed = (totalKm - iHaveWalked) / (daysthisYear - daysPassed);
+    const prospectedWalk = currentAverage / 1000 * daysthisYear;
+    const shouldHaveBeen = endGoal / 1000 * daysPassed;
+    const percentageTotal = iHaveWalked / totalKm * 100;
+    const percentageAvr = currentAverage / endGoal * 100;
+    const reached = iHaveWalked < shouldHaveBeen;
 
     return (
       <>
-      <header className="walks">Walk Motivator</header>
+      <header className="walks">
+        Walk Motivator
+        <Button onClick={this.goalsOpen} variant="success">{goalsOpen ? '-' : '+'}</Button>
+        </header>
+
         <main>
+          <Goals open={goalsOpen} update={this.update}/>
           <Carousel controls="false">
             <Carousel.Item>
               <div className="box">
                 <Carousel.Caption>
-                  <h2>Walk {totalKm}km this year!</h2>
-                  <h3>So far you have walked {iHaveWalked}km</h3>
-                  </Carousel.Caption>
+                  <h2>You have walked <span className={reached && 'notReached'}>{iHaveWalked} km</span> this year</h2>
+                  <h4>The goal is <span>{shouldHaveBeen} km</span></h4>
+                  <h2>That would be <span className={reached && 'notReached'}>{prospectedWalk} km</span> in a year</h2>
+                  <h4>Walk <span>{totalKm} km</span> this year!</h4>
+                  <h2>You still need to walk <span  className={totalKm < iHaveWalked && 'notReached'}>{totalKm - iHaveWalked}km</span> this year</h2>
+                  <ProgressBar variant='success' now={percentageTotal} />
+                </Carousel.Caption>
+              </div>
+            </Carousel.Item>
+            <Carousel.Item>
+              <div className="box">
+                <Carousel.Caption>
+                  <h2>The current average is <span className={reached && 'notReached'}>{currentAverage / 1000} km</span> per day</h2>
+                  <h4>The goal is <span>{endGoal / 1000} km</span> per day</h4>
+
+                  <h2>Want to succeed?</h2>
+                  <h4>Start walking <span>{youNeed.toFixed(2)} km</span> everyday</h4>
+
+                  <h2>You are so close!</h2>
+                  <ProgressBar variant='success' now={percentageAvr} />
+
+                </Carousel.Caption>
               </div>
             </Carousel.Item>
           </Carousel>
-
-
-          <h4>GOAL</h4>
-          <div className="list">
-            <span></span>
-          </div>
-          <div className="list">
-            <span>Walk per day:</span>
-            <input name="endGoal" onChange={this.inputField} value={this.state.endGoal} type="number" pattern="[0-9]*" />
-          </div>
-          <hr></hr>
-          <ProgressBar now={( this.state.currentAverage / this.state.endGoal) * 100} />
-          <div className="list">
-            <span>Current:</span>
-            <input name="currentAverage" onChange={this.inputField} value={this.state.currentAverage} type="number" pattern="[0-9]*" />
-          </div>
-          <div className="list">
-            <span>Habitats</span>
-            <input name="habitats" onChange={this.inputField} value={this.state.habitats} type="number" pattern="[0-9]*" />
-          </div>
         </main>
         </>
     );

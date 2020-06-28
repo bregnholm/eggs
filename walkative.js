@@ -1,5 +1,5 @@
-const moment = require("moment");
 const walks = require('./scripts/walks.json');
+const moment = require("moment");
 const fromMoment = moment([2020, 0]);
 const daysthisYear = moment([2021, 0]).diff(fromMoment, 'days');
 

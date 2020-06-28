@@ -25,7 +25,6 @@ class Goals extends React.Component {
   }
 
   render() {
-      console.log(this.props);
     const {daysUntilFinished, hoursUntilFinished, minutesUntilFinished} = this.timeUntilDone();
     const missingChicken = this.missingChickens()
     return (

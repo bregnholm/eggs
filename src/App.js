@@ -19,25 +19,25 @@ export default function App() {
     <Router>
       <div className="App">
         <Navbar expand="lg" variant="dark">
-          <Navbar.Brand href="/">Peters Stuff</Navbar.Brand>
+          <Navbar.Brand href="/eggs">Peters Stuff</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
-                    <Nav.Link href="/">Home</Nav.Link>
-                    <Nav.Link href="/eggs">Eggs</Nav.Link>
-                    <Nav.Link href="/walks">Walks</Nav.Link>
+                    <Nav.Link href="/eggs/">Home</Nav.Link>
+                    <Nav.Link href="/eggs/eggs">Eggs</Nav.Link>
+                    <Nav.Link href="/eggs/walks">Walks</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
 
         <Switch>
-            <Route path="/eggs">
+            <Route path="/eggs/eggs">
                 <Eggs />
             </Route>
-            <Route path="/walks">
+            <Route path="/eggs/walks">
                 <Walks />
             </Route>
-            <Route path="/">
+            <Route path="/eggs/">
                 <Home />
             </Route>
         </Switch>

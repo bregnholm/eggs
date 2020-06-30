@@ -18,7 +18,7 @@ class Walks extends React.Component {
     
     this.state = {
       endGoal: 3000, 
-      currentAverage: 2400,
+      currentAverage: 0,
       daysthisYear,
       daysPassed,
       goalsOpen: false, walks: [], fromMoment
@@ -36,16 +36,16 @@ class Walks extends React.Component {
 
 
   fullwalks = () => {
-    const walksfull = [];
+    let walksfull = 0;
 
     const { fromMoment, daysPassed, currentAverage, walks = [] } = this.state;
     const makeDay = fromMoment.clone();
-
+    
     for (let day = 0; day < daysPassed; day++) {
-        const momentDay = makeDay.format('Y-MM-DD');
+
+      const momentDay = makeDay.format('Y-MM-DD');
         const curr = walks.find(({date}) => momentDay === date);
-        const push = { date: momentDay, meters: curr ? curr.meters : currentAverage, auto: !curr}
-        walksfull.push(push);
+        walksfull += curr ? curr.meters : currentAverage;
         makeDay.add(1, 'd');
     }
 
@@ -63,21 +63,20 @@ class Walks extends React.Component {
   }
 
   render() {
-    const walkedSoFar = this.fullwalks().reduce((prev, curr) => (prev.meters || prev) + curr.meters);
-    
+    const walkedSoFar = this.fullwalks();
     const {daysPassed, endGoal, daysthisYear, goalsOpen} = this.state;
 
-    const currentAverage = ((walkedSoFar) / (daysPassed)) / 1000;
+    const currentAverage = (walkedSoFar / daysPassed) / 1000;
     const walkedInTotalIfKept = ((currentAverage * (daysthisYear - daysPassed)) + walkedSoFar) / 1000;
-
-    const iHaveWalked = (currentAverage * daysPassed) / 1000;
-    const totalKm = (endGoal * daysthisYear) / 1000;
-    const youNeed = (totalKm - iHaveWalked) / (daysthisYear - daysPassed);
+    const totalMeters = endGoal * daysthisYear;
+    const youNeed = ((totalMeters - walkedSoFar) / (daysthisYear - daysPassed)) / 1000;
     const shouldHaveBeen = endGoal / 1000 * daysPassed;
-    const percentageTotal = iHaveWalked / totalKm * 100;
+    const percentageTotal = walkedSoFar / totalMeters * 100;
     const percentageAvr = currentAverage / endGoal * 100;
-    const reached = iHaveWalked < shouldHaveBeen;
+    const reached = walkedSoFar < shouldHaveBeen;
+    const stillNeed = (totalMeters - walkedSoFar) / 1000
 
+    console.log(totalMeters, walkedSoFar);
     return (
       <>
       <header className="walks">
@@ -94,8 +93,8 @@ class Walks extends React.Component {
                   <h2>You have walked <span className={reached && 'notReached'}>{walkedSoFar / 1000} km</span> this year</h2>
                   <h4>The goal is <span>{shouldHaveBeen} km</span></h4>
                   <h2>That would be <span className={reached && 'notReached'}>{walkedInTotalIfKept.toFixed(2)} km</span> in a year</h2>
-                  <h4>Walk <span>{totalKm} km</span> this year!</h4>
-                  <h2>You still need to walk <span  className={totalKm < iHaveWalked && 'notReached'}>{(totalKm - iHaveWalked).toFixed(2)}km</span> this year</h2>
+                  <h4>Walk <span>{totalMeters / 1000} km</span> this year!</h4>
+                  <h2>You still need to walk <span  className={stillNeed > 0 && 'notReached'}>{stillNeed.toFixed(2)} km</span> this year</h2>
                   <ProgressBar variant='success' now={percentageTotal} />
                 </Carousel.Caption>
               </div>
@@ -107,7 +106,7 @@ class Walks extends React.Component {
                   <h4>The goal is <span>{endGoal / 1000} km</span> per day</h4>
 
                   <h2>Want to succeed?</h2>
-                  <h4>Start walking <span>{youNeed.toFixed(2)} km</span> everyday</h4>
+                  <h4>Start walking <span>{youNeed.toFixed(2)} km</span> every day</h4>
 
                   <h2>You are so close!</h2>
                   <ProgressBar variant='success' now={percentageAvr} />
